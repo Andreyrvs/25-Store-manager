@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+console.log('Iniciando o projeto usando docker');
+
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();
