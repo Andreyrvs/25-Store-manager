@@ -13,17 +13,17 @@ const allProducts = [
 
 
 describe('Retorna todos os produtos', function () {
-  before(async function () {
-    const execute = [[]];
-
-    sinon.stub(connection, 'execute').resolves(execute)
-  })
-
-  after(async function () {
-    productsModel.getAll.restore()
-  })
-
+  
   describe('Quando não tem a lista de produtos', function () {
+    before(async function () {
+      const execute = [[]];
+  
+      sinon.stub(connection, 'execute').resolves(execute)
+    })
+  
+    after(async function () {
+      connection.execute.restore()
+    })
     it('retorna null', async function () {
       const response = await productsModel.getAll();
 
@@ -33,7 +33,7 @@ describe('Retorna todos os produtos', function () {
 
   describe('Quanto tem os produtos na list', function () {
     before(async function () {
-      sinon.stub(productsModel, 'getAll').resolves(allProducts)
+      sinon.stub(connection, 'execute').resolves([allProducts])
     })
     after(async function () {
       connection.execute.restore()
@@ -63,21 +63,22 @@ describe('Retorna todos os produtos', function () {
 })
 
 describe('Busca apenas um produto no BD pelo ID', function () {
-  before(async function () {
-    const execute = [[]];
-
-    sinon.stub(connection, 'execute').resolves(execute)
-  })
-
-  after(async function () {
-    productsModel.getById.restore()
-  })
-
+  
   describe('Quando não tem um produto com o ID informado', function () {
-    it('retorna null', async function () {
-      const response = await productsModel.getById();
+    before(async function () {
+      const execute = [[]];
+  
+      sinon.stub(connection, 'execute').resolves([execute])
+    })
+  
+    after(async function () {
+      connection.execute.restore()
+    })
 
-      expect(response).to.be.equal(null)
+    it('retorna null', async function () {
+      const response = await productsModel.getById(1);
+
+      expect(response).to.be.equal({ id: undefined, name: undefined })
     })
 
     describe('Quando existe um produto com o ID informado', function () {
@@ -87,7 +88,7 @@ describe('Busca apenas um produto no BD pelo ID', function () {
           name: "Martelo de Thor"
         }
 
-        sinon.stub(productsModel, 'getById').resolves(execute)
+        sinon.stub(connection, 'execute').resolves([execute])
       })
 
       after(async function () {
