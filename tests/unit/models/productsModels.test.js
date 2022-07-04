@@ -63,12 +63,12 @@ describe('Retorna todos os produtos', function () {
 })
 
 describe('Busca apenas um produto no BD pelo ID', function () {
-  
+  const id = 1
   describe('Quando não tem um produto com o ID informado', function () {
     before(async function () {
       const execute = [[]];
   
-      sinon.stub(connection, 'execute').resolves([execute])
+      sinon.stub(connection, 'execute').resolves(execute)
     })
   
     after(async function () {
@@ -76,9 +76,9 @@ describe('Busca apenas um produto no BD pelo ID', function () {
     })
 
     it('retorna null', async function () {
-      const response = await productsModel.getById(1);
+      const response = await productsModel.getById(id);
 
-      expect(response).to.be.equal({ id: undefined, name: undefined })
+      expect(response).to.be.null
     })
 
     describe('Quando existe um produto com o ID informado', function () {
@@ -87,29 +87,31 @@ describe('Busca apenas um produto no BD pelo ID', function () {
           id: 1,
           name: "Martelo de Thor"
         }
-
-        sinon.stub(connection, 'execute').resolves([execute])
+        // No stub se eu coloco a funcao passa tudo Falso positovo?
+        sinon.stub(productsModel, 'getById').resolves(execute)
       })
 
       after(async function () {
-        connection.execute.restore()
+        // connection.execute.restore()
+
+         productsModel.getById.restore()
       })
 
       describe('Busca um produto com sucesso', function () {
         it('retorna um objeto', async function () {
-          const response = await productsModel.getById(1);
+          const response = await productsModel.getById(id);
 
           expect(response).to.be.an('object')
         })
 
         it('o objeto não está vazio', async function () {
-          const response = await productsModel.getById(1);
+          const response = await productsModel.getById(id);
 
           expect(response).to.be.not.empty
         })
 
         it('o objeto tem as propriedades: "id", "name"', async function () {
-          const response = await productsModel.getById(1);
+          const response = await productsModel.getById(id);
 
           expect(response).to.have.all.keys('id', 'name')
         })

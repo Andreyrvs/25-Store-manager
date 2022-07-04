@@ -63,19 +63,19 @@ describe('Retorna todos os produtos', function () {
 })
 
 describe('Busca apenas um produto no BD pelo ID', function () {
-  before(async function () {
-    const execute = [[]];
-
-    sinon.stub(connection, 'execute').resolves(execute)
-  })
-
-  after(async function () {
-    productsService.getById.restore()
-  })
-
+  const id = 1
   describe('Quando não tem um produto com o ID informado', function () {
+    before(async function () {
+      const execute = [[]];
+  
+      sinon.stub(connection, 'execute').resolves(execute)
+    })
+  
+    after(async function () {
+      productsService.getById.restore()
+    })
     it('retorna null', async function () {
-      const response = await productsService.getById();
+      const response = await productsService.getById(id);
 
       expect(response).to.be.equal(null)
     })
@@ -96,19 +96,19 @@ describe('Busca apenas um produto no BD pelo ID', function () {
 
       describe('Busca um produto com sucesso', function () {
         it('retorna um objeto', async function () {
-          const response = await productsService.getById(1);
+          const response = await productsService.getById(id);
 
           expect(response).to.be.an('object')
         })
 
         it('o objeto não está vazio', async function () {
-          const response = await productsService.getById(1);
+          const response = await productsService.getById(id);
 
           expect(response).to.be.not.empty
         })
 
         it('o objeto tem as propriedades: "id", "name"', async function () {
-          const response = await productsService.getById(1);
+          const response = await productsService.getById(id);
 
           expect(response).to.have.all.keys('id', 'name')
         })
