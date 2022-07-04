@@ -13,7 +13,6 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', rescue(productsController.getAll));
-app.get('/ping', (req, res) => res.status(200).json({ message: 'pong!' }));
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
