@@ -23,20 +23,20 @@ const getById = async (idp) => {
   };
 };
 
-// const create = async (name) => {
-//   const query = `INSERT INTO StoreManager.products (name)
-//   VALUES (?);`;
+const create = async (name) => {
+  const query = `INSERT INTO StoreManager.products (name)
+  VALUES (?);`;
 
-//   const [result] = await connection.execute(query, [name]);
+  const [result] = await connection.execute(query, [name]);
 
-//   return {
-//     id: result.insertId,
-//     name,
-//   };
-// };
+  return {
+    id: result.insertId,
+    name,
+  };
+};
 
 module.exports = {
   getAll,
   getById,
-  // create,
+  create,
 };
