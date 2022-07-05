@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const connection = require('../../../models/connection');
+const connection = require('../../../helpers/connection');
 
 const productsService = require('../../../services/productsService')
 
@@ -66,9 +66,9 @@ describe('Ao chamar a camada Service', function () {
 
   describe('Busca apenas um produto no BD pelo ID', function () {    
     before(async function () {
-      const execute = [[]];
+      const execute =[[]];
 
-      sinon.stub(connection, 'execute').resolves([execute]);
+      sinon.stub(connection, 'execute').resolves(execute);
     });
 
     after(async function () {
@@ -76,10 +76,11 @@ describe('Ao chamar a camada Service', function () {
     });
 
     describe('Quando não existe um  produto com o ID informado', function () {
-      const id = 13
+      const id = 1
 
       it('retorna null', async function () {
-        const response = await productsService.getById();
+        const response = await productsService.getById(12);
+
         expect(response).to.be.equal(null)
       })
 
@@ -87,7 +88,7 @@ describe('Ao chamar a camada Service', function () {
 
         before(async function () {
           const EXAMPLE = {
-            id: 13,
+            id: 1,
             name: "Martelo de Thor"
           };
 

@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const connection = require('../../../models/connection');
+const connection = require('../../../helpers/connection');
 
 const productsModel = require('../../../models/productsModel')
 
@@ -82,7 +82,7 @@ describe('Ao chamar a camada Models', function () {
 
       it('retorna null', async function () {
         const response = await productsModel.getById(id);
-        console.log('test', response);
+
         expect(response).to.deep.equal({ id: undefined, name: undefined })
       })
 

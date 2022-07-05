@@ -14,7 +14,6 @@ const getById = async (id) => {
   const result = await productsModel.getById(id);
 
   if (!result) return null;
-
   return result;
 };
 
