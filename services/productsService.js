@@ -16,7 +16,24 @@ const getById = async (id) => {
   return result;
 };
 
+const isValid = (name) => {
+  if (typeof name !== 'string') return false;
+  
+  return true;
+};
+
+const create = async (name) => {
+  const isNameValid = isValid(name);
+
+  if (!isNameValid) return null;
+  
+  const result = await productsModel.create(name);
+
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
