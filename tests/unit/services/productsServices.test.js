@@ -11,10 +11,9 @@ const allProducts = [
   { id: 3, name: 'Escudo do Capitão América' },
 ]
 
-describe('Ao chamar a camada Models', function () {
+describe('Ao chamar a camada Service', function () {
 
   describe('Retorna todos os produtos', function () {
-
     describe('Quando não tem a lista de produtos', function () {
       before(async function () {
         const execute = [[]];
@@ -65,28 +64,38 @@ describe('Ao chamar a camada Models', function () {
     })
   })
 
-  describe('Busca apenas um produto no BD pelo ID', function () {
+  describe('Busca apenas um produto no BD pelo ID', function () {    
+    before(async function () {
+      const execute = [[]];
 
-    const id = 1
+      sinon.stub(connection, 'execute').resolves([execute]);
+    });
+
+    after(async function () {
+      connection.execute.restore();
+    });
 
     describe('Quando não existe um  produto com o ID informado', function () {
-      before(async function () {
-        const execute = [[]];
-
-        sinon.stub(connection, 'execute').resolves([execute])
-      })
-
-      after(async function () {
-        connection.execute.restore()
-      })
+      const id = 13
 
       it('retorna null', async function () {
-        const response = await productsService.getById(id);
-        console.log('test', response);
-        expect(response).to.deep.equal({ id: undefined, name: undefined })
+        const response = await productsService.getById();
+        expect(response).to.be.equal(null)
       })
 
       describe('Quando existe um produto com o ID informado', function () {
+
+        before(async function () {
+          const EXAMPLE = {
+            id: 13,
+            name: "Martelo de Thor"
+          };
+
+          sinon.stub(productsService, 'getById').resolves(EXAMPLE)
+        })
+        after(async function () {
+          productsService.getById.restore()
+        })
 
         describe('Busca um produto com sucesso passando o "ID"', function () {
           it('retorna um objeto', async function () {
@@ -110,6 +119,5 @@ describe('Ao chamar a camada Models', function () {
 
       })
     })
-
   });
 });
