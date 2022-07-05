@@ -20,28 +20,28 @@ const getById = async (req, res) => {
   return res.status(200).json(result);
 };
 
-const create = async (req, res) => {
-  const { name } = req.body;
+// const create = async (req, res) => {
+//   const { name } = req.body;
 
-  if (!name) {
-    return res.status(400).json({ message: '"name" is required' });
-  }
+//   if (!name) {
+//     return res.status(400).json({ message: '"name" is required' });
+//   }
 
-  if (name.length < 5) {
-    return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
-  }
+//   if (name.length < 5) {
+//     return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
+//   }
 
-  const result = await productsService.create(name);
+//   const result = await productsService.create(name);
 
-  if (!result) {
-    return res.status(400).json({ message: 'Bad Request' });
-  }
+//   if (!result) {
+//     return res.status(400).json({ message: 'Bad Request' });
+//   }
 
-  return res.status(201).json(result);
-};
+//   return res.status(201).json(result);
+// };
 
 module.exports = {
   getAll,
   getById,
-  create,
+  // create,
 };
