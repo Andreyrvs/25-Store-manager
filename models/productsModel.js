@@ -1,7 +1,9 @@
 const connection = require('../helpers/connection');
 
+const DATABASE = 'StoreManager';
+
 const getAll = async () => {
-  const query = 'SELECT * FROM StoreManager.products;';
+  const query = `SELECT * FROM ${DATABASE}.products;`;
   const [result] = await connection.execute(query);
 
   if (result.length === 0) return null;
@@ -10,21 +12,18 @@ const getAll = async () => {
 };
 
 const getById = async (idp) => {
-  const query = 'SELECT * FROM StoreManager.products WHERE id = ?;';
-  
+  const query = `SELECT * FROM ${DATABASE}.products WHERE id = ?;`;
+  // console.log(idp);
   const [result] = await connection.execute(query, [idp]);
 
-  if (result.length === 0) return null;
+  if (result.length === 0 || !result) return null;
 
-  const { id, name } = result[0];
-  return {
-    id, 
-    name,
-  };
+  // console.log('SALE', result[0]);
+  return result[0];
 };
 
 const create = async (name) => {
-  const query = `INSERT INTO StoreManager.products (name)
+  const query = `INSERT INTO ${DATABASE}.products (name)
   VALUES (?);`;
 
   const [result] = await connection.execute(query, [name]);
@@ -35,28 +34,29 @@ const create = async (name) => {
   };
 };
 
-const createSale = async ({ productId, quantity }) => {
-  const querySale = `INSERT INTO StoreManager.sales (date)
+const createSale = async (dataSales) => {
+  const querySale = `
+    INSERT INTO 
+    ${DATABASE}.sales (date)
     VALUES (NOW())`;
 
   const [sale] = await connection.execute(querySale);
 
-  const querySalesProduct = `INSERT INTO StoreManager.sales_products 
-  (sale_id ,product_id, quantity)
-    VALUES (?, ?, ?)`;
-  const [productSale] = await connection.execute(
-    querySalesProduct, [sale.insertId, productId, quantity],
-);
+  const querySalesProduct = `
+  INSERT INTO
+  ${DATABASE}.sales_products (sale_id, product_id, quantity)
+  VALUES ?`;
+  
+  const row = [sale.insertId, dataSales.productId, dataSales.quantity];
 
+  console.log('Row', row);
+
+  const productSale = await connection.execute(querySalesProduct, [[row]]);
+
+    console.log('dentro da func', productSale);
   if (!productSale) return null;
   
-  console.log('dentro da func', productSale);
-  return {
-    id: sale.insertId,
-    itemsSold: [
-      productSale,
-    ],
-  };
+  return productSale;
 };
 
 module.exports = {
