@@ -35,7 +35,7 @@ const create = async (name) => {
   };
 };
 
-const createSale = async (productId, quantity) => {
+const createSale = async ({ productId, quantity }) => {
   const querySale = `INSERT INTO StoreManager.sales (date)
     VALUES (NOW())`;
 
@@ -48,11 +48,17 @@ const createSale = async (productId, quantity) => {
     querySalesProduct, [sale.insertId, productId, quantity],
 );
 
+  if (!productSale) return null;
+  
   console.log('dentro da func', productSale);
-  return sale;
+  return {
+    id: sale.insertId,
+    itemsSold: [
+      productSale,
+    ],
+  };
 };
 
-// createSale(3, 22);
 module.exports = {
   getAll,
   getById,
