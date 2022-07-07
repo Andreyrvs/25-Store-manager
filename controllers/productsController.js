@@ -40,8 +40,28 @@ const create = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const createSale = async (req, res) => {
+  const [{ productId, quantity }] = req.body;
+
+  if (!productId) return res.status(400).json({ message: '"productId" is required' });
+  if (!quantity) return res.status(400).json({ message: '"quantity" is required' });
+
+  if (quantity <= 0) {
+    return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  }
+
+  const result = await productsService.createSale({ productId, quantity });
+
+  if (!result) {
+    return res.status(404).json({ message: 'Not Found' });
+  }
+
+  return res.status(201).json(result);
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  createSale,
 };
