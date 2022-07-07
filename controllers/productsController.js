@@ -1,3 +1,4 @@
+// const Joi = require('joi');
 const productsService = require('../services/productsService');
 
 const getAll = async (_req, res) => {
@@ -41,19 +42,20 @@ const create = async (req, res) => {
 };
 
 const createSale = async (req, res) => {
-  const [{ productId, quantity }] = req.body;
+  const productId = req.body.some((item) => item.productId === undefined);
+  const quantity = req.body.some((item) => item.quantity === undefined);
 
-  if (!productId) return res.status(400).json({ message: '"productId" is required' });
-  if (!quantity) return res.status(400).json({ message: '"quantity" is required' });
+  if (productId) return res.status(400).json({ message: '"productId" is required' });
+  if (quantity) return res.status(400).json({ message: '"quantity" is required' });
 
-  if (quantity <= 0) {
-    return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
-  }
+  // if (quantityValid) {
+  //   return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  // }
 
-  const result = await productsService.createSale({ productId, quantity });
+  const result = await productsService.createSale(req.body);
 
   if (!result) {
-    return res.status(404).json({ message: 'Not Found' });
+    return res.status(404).json({ message: 'Product not found' });
   }
 
   return res.status(201).json(result);
