@@ -33,19 +33,17 @@ const create = async (name) => {
   return result;
 };
 
-const createSale = async ({ productId, quantity }) => {
-  const isValidProductId = await productsModel.getById(productId);
+const createSale = async (dataSales) => {
+  const newSale = await Promise.all(dataSales.map((item) => productsModel.getById(item.productId)));
+  
+  const isValidSale = newSale.some((item) => item === null);
 
-  if (!isValidProductId) return null;
+  if (isValidSale) return null; 
 
-  const result = await productsModel.createSale({ productId, quantity });
-
-  if (!result) return null; 
+  const result = await Promise.all(dataSales.map((item) => productsModel.createSale(item)));
  
   return result;
 };
-
-// createSale(4, 22);
 
 module.exports = {
   getAll,
