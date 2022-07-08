@@ -45,18 +45,17 @@ const querySale = `
   
 const createSale = async (dataSales) => {
   const [sale] = await connection.execute(querySale);
-  // console.log(sale);
-  const row = [sale.insertId, dataSales.productId, dataSales.quantity];
 
-  const productSale = await connection.execute(querySalesProduct, row);
+  const productSale = await Promise.all(dataSales.map((item) => 
+    connection.execute(querySalesProduct, [sale.insertId, item.productId, item.quantity])));
 
-  // console.log('dentro da func', sale);
-  if (!productSale) return null;
+  // await Promise.all(dataSales.map((item) => console.log([sale.insertId, item.productId, item.quantity])));
   
+  if (!productSale) return null;
+
   return {
     id: sale.insertId,
-    itemsSold: [{ productId: dataSales.productId, quantity: dataSales.quantity,
-  }],
+    itemsSold: dataSales,
   };
 };
 
