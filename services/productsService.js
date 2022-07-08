@@ -40,8 +40,10 @@ const createSale = async (dataSales) => {
 
   if (isValidSale) return null; 
 
-  const result = await Promise.all(dataSales.map((item) => productsModel.createSale(item)));
- 
+  const result = await productsModel.createSale(dataSales);
+
+  if (!result) return null;
+  
   return result;
 };
 
