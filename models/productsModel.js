@@ -13,12 +13,11 @@ const getAll = async () => {
 
 const getById = async (idp) => {
   const query = `SELECT * FROM ${DATABASE}.products WHERE id = ?;`;
-  // console.log(idp);
+
   const [result] = await connection.execute(query, [idp]);
 
   if (result.length === 0 || !result) return null;
 
-  // console.log('SALE', result[0]);
   return result[0];
 };
 
@@ -34,29 +33,31 @@ const create = async (name) => {
   };
 };
 
-const createSale = async (dataSales) => {
-  const querySale = `
-    INSERT INTO 
-    ${DATABASE}.sales (date)
-    VALUES (NOW())`;
-
-  const [sale] = await connection.execute(querySale);
+const querySale = `
+  INSERT INTO 
+  ${DATABASE}.sales (date)
+  VALUES (NOW())`;
 
   const querySalesProduct = `
   INSERT INTO
   ${DATABASE}.sales_products (sale_id, product_id, quantity)
-  VALUES ?`;
+  VALUES (?,?,?)`;
   
+const createSale = async (dataSales) => {
+  const [sale] = await connection.execute(querySale);
+  // console.log(sale);
   const row = [sale.insertId, dataSales.productId, dataSales.quantity];
 
-  console.log('Row', row);
+  const productSale = await connection.execute(querySalesProduct, row);
 
-  const productSale = await connection.execute(querySalesProduct, [[row]]);
-
-    console.log('dentro da func', productSale);
+  // console.log('dentro da func', sale);
   if (!productSale) return null;
   
-  return productSale;
+  return {
+    id: sale.insertId,
+    itemsSold: [{ productId: dataSales.productId, quantity: dataSales.quantity,
+  }],
+  };
 };
 
 module.exports = {
