@@ -38,6 +38,17 @@ const createSale = async (dataSales) => {
   };
 };
 
+const deleteProduct = async (id) => {
+  const query = `DELETE FROM ${DATABASE}.products WHERE id = ?`;
+
+  const [result] = await connection.execute(query, [id]);
+  console.log(result);
+
+  if (result.length === 0) return null;
+
+  return result;
+};
+
 const getAll = async () => {
   const query = `SELECT * FROM ${DATABASE}.products;`;
   const [result] = await connection.execute(query);
@@ -76,6 +87,7 @@ const updateById = async (id, name) => {
 module.exports = {
   create,
   createSale,
+  deleteProduct,
   getAll,
   getById,
   updateById,

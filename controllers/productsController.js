@@ -47,6 +47,20 @@ const createSale = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  const isExist = await productsService.getById(id);
+
+  if (!isExist) {
+    return res.status(404).json({ message: errorMessage.notFound });
+  }
+
+  await productsService.deleteProduct(id);
+
+  return res.status(204).end();
+};
+
 const getAll = async (_req, res) => {
   const result = await productsService.getAll();
 
@@ -95,6 +109,7 @@ const updateById = async (req, res) => {
 module.exports = {
   create,
   createSale,
+  deleteProduct,
   getAll,
   getById,
   updateById,

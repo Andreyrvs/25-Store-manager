@@ -20,6 +20,7 @@ app.get('/products', rescue(productsController.getAll));
 app.get('/products/:id', rescue(productsController.getById));
 app.post('/products', rescue(productsController.create));
 app.put('/products/:id', rescue(productsController.updateById));
+app.delete('/products/:id', rescue(productsController.deleteProduct));
 
 app.post('/sales', rescue(productsController.createSale));
 app.get('/sales', rescue(salesController.getAll));

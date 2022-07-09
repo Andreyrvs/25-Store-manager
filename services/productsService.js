@@ -30,6 +30,14 @@ const createSale = async (dataSales) => {
   return result;
 };
 
+const deleteProduct = async (id) => {
+  const result = await productsModel.deleteProduct(id);
+
+  if (!result) return null;
+
+  return result;
+};
+
 const getAll = async () => {
   const result = await productsModel.getAll();
 
@@ -58,6 +66,7 @@ const updateById = async (id, name) => {
 module.exports = {
   create,
   createSale,
+  deleteProduct,
   getAll,
   getById,
   updateById,
