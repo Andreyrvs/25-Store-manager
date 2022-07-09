@@ -80,11 +80,11 @@ const updateById = async (req, res) => {
   }
 
   const isNameValid = await productsService.getById(id);
-
+  
   if (!isNameValid) return res.status(404).json({ message: errorMessage.notFound });
-
+  
   const result = await productsService.updateById(id, name);
-
+    
   if (!result) {
     return res.status(404).json({ message: errorMessage.notFound });
   }
