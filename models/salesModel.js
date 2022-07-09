@@ -3,7 +3,12 @@ const connection = require('../helpers/connection');
 const DATABASE = 'StoreManager';
 
 const getAll = async () => {
-  const query = `SELECT * FROM ${DATABASE}.sales`;
+  const query = `
+    SELECT SP.sale_id AS saleId, S.date, SP.product_id AS productId, SP.quantity
+    FROM ${DATABASE}.sales_products AS SP
+    INNER JOIN ${DATABASE}.sales as S
+    ON SP.sale_id = S.id
+    ORDER BY SP.sale_id ASC, SP.product_id ASC`;
 
   const [sales] = await connection.execute(query);
 
