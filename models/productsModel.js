@@ -2,6 +2,42 @@ const connection = require('../helpers/connection');
 
 const DATABASE = 'StoreManager';
 
+const create = async (name) => {
+  const query = `INSERT INTO ${DATABASE}.products (name)
+  VALUES (?);`;
+
+  const [result] = await connection.execute(query, [name]);
+
+  return {
+    id: result.insertId,
+    name,
+  };
+};
+
+const querySale = `
+  INSERT INTO 
+  ${DATABASE}.sales (date)
+  VALUES (NOW())`;
+
+const querySalesProduct = `
+  INSERT INTO
+  ${DATABASE}.sales_products (sale_id, product_id, quantity)
+  VALUES (?,?,?)`;
+
+const createSale = async (dataSales) => {
+  const [sale] = await connection.execute(querySale);
+
+  const productSale = await Promise.all(dataSales.map((item) =>
+    connection.execute(querySalesProduct, [sale.insertId, item.productId, item.quantity])));
+
+  if (!productSale) return null;
+
+  return {
+    id: sale.insertId,
+    itemsSold: dataSales,
+  };
+};
+
 const getAll = async () => {
   const query = `SELECT * FROM ${DATABASE}.products;`;
   const [result] = await connection.execute(query);
@@ -21,45 +57,26 @@ const getById = async (idp) => {
   return result[0];
 };
 
-const create = async (name) => {
-  const query = `INSERT INTO ${DATABASE}.products (name)
-  VALUES (?);`;
+const updateById = async (id, name) => {
+  const query = `
+  UPDATE ${DATABASE}.products
+  SET name = ?
+  WHERE products.id = ?`;
 
-  const [result] = await connection.execute(query, [name]);
+  const [result] = await connection.execute(query, [name, id]);
+
+  if (result.length === 0) return null;
 
   return {
-    id: result.insertId,
+    id,
     name,
   };
 };
 
-const querySale = `
-  INSERT INTO 
-  ${DATABASE}.sales (date)
-  VALUES (NOW())`;
-
-  const querySalesProduct = `
-  INSERT INTO
-  ${DATABASE}.sales_products (sale_id, product_id, quantity)
-  VALUES (?,?,?)`;
-  
-const createSale = async (dataSales) => {
-  const [sale] = await connection.execute(querySale);
-
-  const productSale = await Promise.all(dataSales.map((item) => 
-    connection.execute(querySalesProduct, [sale.insertId, item.productId, item.quantity])));
-
-  if (!productSale) return null;
-
-  return {
-    id: sale.insertId,
-    itemsSold: dataSales,
-  };
-};
-
 module.exports = {
-  getAll,
-  getById,
   create,
   createSale,
+  getAll,
+  getById,
+  updateById,
 };
