@@ -10,7 +10,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
   if (!id) return null;
-  
+
   const result = await salesModel.getById(id);
 
   if (!result) return null;

@@ -24,11 +24,11 @@ const getById = async (id) => {
     WHERE S.id = ?
     ORDER BY SP.sale_id ASC, SP.product_id ASC`;
   
-  const result = await connection.execute(query, [id]);
+  const [result] = await connection.execute(query, [id]);
 
-  if (result[0].length === 0 || !result[0]) return null;
+  if (result.length === 0 || !result) return null;
 
-  return result[0];
+  return result;
 };
 
 module.exports = {
