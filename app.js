@@ -19,11 +19,11 @@ app.get('/', (_request, response) => {
 app.get('/products', rescue(productsController.getAll));
 app.get('/products/:id', rescue(productsController.getById));
 app.post('/products', rescue(productsController.create));
+app.put('/products/:id', rescue(productsController.updateById));
 
 app.post('/sales', rescue(productsController.createSale));
 app.get('/sales', rescue(salesController.getAll));
 app.get('/sales/:id', rescue(salesController.getById));
-
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 
