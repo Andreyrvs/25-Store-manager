@@ -13,7 +13,38 @@ const allProducts = [
 
 describe('Ao chamar a camada Models', function () {
 
-  describe('Retorna todos os produtos', function () {
+  describe('Insere um novo filme no BD', function () { 
+    const payLoadProduct = {
+      name: "batata"
+    }
+    before(async function () {
+      const execute = [{ insertId: 1 }];
+
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async function () {
+      connection.execute.restore();
+    });
+
+    describe('quando é inserido com sucesso', function () {
+      it('retorna um objeto', async function () {
+        const response = await productsModel.create(payLoadProduct);
+
+        expect(response).to.be.a('object');
+      });
+
+      it('tal objeto possui o "id" do novo filme inserido', async function () {
+        const response = await productsModel.create(payLoadProduct);
+
+        expect(response).to.have.a.property('id');
+      });
+    });
+
+  })
+
+
+  describe('Retorna todos os produtos "getall"', function () {
     
     describe('Quando não tem a lista de produtos', function () {
       before(async function () {
@@ -65,7 +96,7 @@ describe('Ao chamar a camada Models', function () {
     })
   })
 
-  describe('Busca apenas um produto no BD pelo ID', function () {
+  describe('Busca apenas um produto no BD pelo ID "getById', function () {
 
     describe('Quando não existe um  produto com o ID informado', function () {
       before(async function () {
