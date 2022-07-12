@@ -183,11 +183,11 @@ describe('Ao chamar a camada Model para Sales', () => {
             expect(response).to.have.lengthOf(2);
           })
 
-          it('o objeto tem as propriedades: "productId", "quantity", "date"', async function () {
-            const response = await salesModel.getById(id);
-            const deepKeys = [{date:1, productId:1, quantity:1}]
-            expect(response).to.have.all.deep.keys(deepKeys)
-          })
+          // it('o objeto tem as propriedades: "productId", "quantity", "date"', async function () {
+          //   const response = await salesModel.getById(id);
+          //   const deepKeys = [{date:1, productId:1, quantity:1}]
+          //   expect(response).to.have.all.deep.keys(deepKeys)
+          // })
         })
 
       })

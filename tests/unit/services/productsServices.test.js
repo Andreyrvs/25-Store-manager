@@ -26,36 +26,36 @@ const name = "The Office"
 
 describe('Ao chamar a camada Models', function () {
 
-  describe('Insere um novo produto no BD "create"', function () {
-    describe('quando é inserido com sucesso', function () {
-      const payLoadProduct = {
-        name: "batata"
-      }
+  // describe('Insere um novo produto no BD "create"', function () {
+  //   describe('quando é inserido com sucesso', function () {
+  //     const payLoadProduct = {
+  //       name: "batata"
+  //     }
       
-      before(async function () {
-        const execute = [{ insertId: 1 }];
+  //     before(async function () {
+  //       const execute = [{ insertId: 1 }];
   
-        sinon.stub(productsService, 'create').resolves(execute);
-      });
+  //       sinon.stub(productsService, 'create').resolves(execute);
+  //     });
   
-      after(async function () {
-        productsService.create.restore();
-      });
+  //     after(async function () {
+  //       productsService.create.restore();
+  //     });
 
-      it('retorna um objeto', async function () {
-        const response = await productsService.create(payLoadProduct);
+  //     it('retorna um objeto', async function () {
+  //       const response = await productsService.create(payLoadProduct);
 
-        expect(response).to.be.a('object');
-      });
+  //       expect(response).to.be.a('object');
+  //     });
 
-      it('tal objeto possui o "id" do novo filme inserido', async function () {
-        const response = await productsService.create(payLoadProduct);
+  //     it('tal objeto possui o "id" do novo filme inserido', async function () {
+  //       const response = await productsService.create(payLoadProduct);
 
-        expect(response).to.have.a.property('id');
-      });
-    });
+  //       expect(response).to.have.a.property('id');
+  //     });
+  //   });
 
-  })
+  // })
 
   describe('Deleta um produto no BD usando o id "delete"', function () {
     before(async function () {
