@@ -11,9 +11,12 @@ const allProducts = [
   { id: 3, name: 'Escudo do Capitão América' },
 ]
 
+const id = 1
+const name = "The Office"
+
 describe('Ao chamar a camada Models', function () {
 
-  describe('Insere um novo filme no BD "create"', function () { 
+  describe('Insere um novo produto no BD "create"', function () { 
     const payLoadProduct = {
       name: "batata"
     }
@@ -43,7 +46,43 @@ describe('Ao chamar a camada Models', function () {
 
   })
 
+  describe('Deleta um produto no BD usando o id "delete"', function () {
+    before(async function () {
+      const execute = [[]];
 
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async function () {
+      connection.execute.restore();
+    });
+
+    describe('quando é deletado com sucesso', async function () {
+      const response = await productsModel.deleteProduct(id)
+      expect(response).to.have.property('REMOVED')
+    })
+
+   })
+
+  describe('Atualiza um produto no BD usando o id "updateById"', function () {
+    before(async function () {
+      const execute = [[]];
+
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async function () {
+      connection.execute.restore();
+    });
+
+    describe('quando é deletado com sucesso', async function () {
+      const response = await productsModel.updateById(id, name)
+      expect(response).to.have.property('UPDATE')
+    })
+
+  })
+
+  
   describe('Retorna todos os produtos "getall"', function () {
     
     describe('Quando não tem a lista de produtos', function () {
@@ -131,8 +170,6 @@ describe('Ao chamar a camada Models', function () {
         after(async function () {
           connection.execute.restore();
         });
-
-        const id = 1
         
         describe('Busca um produto com sucesso passando o "ID"', function () {
           it('retorna um objeto', async function () {
