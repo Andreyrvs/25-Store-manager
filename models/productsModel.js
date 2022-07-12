@@ -14,30 +14,6 @@ const create = async (name) => {
   };
 };
 
-const querySale = `
-  INSERT INTO 
-  ${DATABASE}.sales (date)
-  VALUES (NOW())`;
-
-const querySalesProduct = `
-  INSERT INTO
-  ${DATABASE}.sales_products (sale_id, product_id, quantity)
-  VALUES (?,?,?)`;
-
-const createSale = async (dataSales) => {
-  const [sale] = await connection.execute(querySale);
-
-  const productSale = await Promise.all(dataSales.map((item) =>
-    connection.execute(querySalesProduct, [sale.insertId, item.productId, item.quantity])));
-
-  if (!productSale) return null;
-
-  return {
-    id: sale.insertId,
-    itemsSold: dataSales,
-  };
-};
-
 const deleteProduct = async (id) => {
   const query = `DELETE FROM ${DATABASE}.products WHERE id = ?`;
 
@@ -86,7 +62,6 @@ const updateById = async (id, name) => {
 
 module.exports = {
   create,
-  createSale,
   deleteProduct,
   getAll,
   getById,

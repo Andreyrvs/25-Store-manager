@@ -1,5 +1,19 @@
 const salesModel = require('../models/salesModel');
 
+const createSale = async (dataSales) => {
+  const newSale = await Promise.all(dataSales.map((item) => salesModel.getById(item.productId)));
+
+  const isValidSale = newSale.some((item) => item === null);
+
+  if (isValidSale) return null;
+
+  const result = await salesModel.createSale(dataSales);
+
+  if (!result) return null;
+
+  return result;
+};
+
 const getAll = async () => {
   const result = await salesModel.getAll();
 
@@ -21,4 +35,5 @@ const getById = async (id) => {
 module.exports = {
   getAll,
   getById,
+  createSale,
 };

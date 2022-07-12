@@ -13,7 +13,7 @@ const allProducts = [
 
 describe('Ao chamar a camada Models', function () {
 
-  describe('Insere um novo filme no BD', function () { 
+  describe('Insere um novo filme no BD "create"', function () { 
     const payLoadProduct = {
       name: "batata"
     }
@@ -36,6 +36,43 @@ describe('Ao chamar a camada Models', function () {
 
       it('tal objeto possui o "id" do novo filme inserido', async function () {
         const response = await productsModel.create(payLoadProduct);
+
+        expect(response).to.have.a.property('id');
+      });
+    });
+
+  })
+
+  describe('Insere um novo filme no BD "create"', function () {
+    const payLoadProduct = [
+      {
+        productId: 1,
+        quantity: 12
+      },
+      {
+        productId: 2,
+        quantity: 22
+      }
+    ]
+    before(async function () {
+      const execute = [{ insertId: 1 }];
+
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async function () {
+      connection.execute.restore();
+    });
+
+    describe('quando é inserido com sucesso', function () {
+      it('retorna um objeto', async function () {
+        const response = await productsModel.createSale(payLoadProduct);
+
+        expect(response).to.be.a('object');
+      });
+
+      it('tal objeto possui o "id" do novo filme inserido', async function () {
+        const response = await productsModel.createSale(payLoadProduct);
 
         expect(response).to.have.a.property('id');
       });

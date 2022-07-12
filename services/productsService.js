@@ -16,20 +16,6 @@ const create = async (name) => {
   return result;
 };
 
-const createSale = async (dataSales) => {
-  const newSale = await Promise.all(dataSales.map((item) => productsModel.getById(item.productId)));
-
-  const isValidSale = newSale.some((item) => item === null);
-
-  if (isValidSale) return null;
-
-  const result = await productsModel.createSale(dataSales);
-
-  if (!result) return null;
-
-  return result;
-};
-
 const deleteProduct = async (id) => {
   const result = await productsModel.deleteProduct(id);
 
@@ -65,7 +51,7 @@ const updateById = async (id, name) => {
 
 module.exports = {
   create,
-  createSale,
+
   deleteProduct,
   getAll,
   getById,
