@@ -34,12 +34,12 @@ describe('Ao chamar a camada Model para Sales', () => {
         }
       ]
 
-    const wrongPayLoadProduct = [
-      {
-        prodctId: 21,
-        quantity: 12
-      },
-    ]
+    // const wrongPayLoadProduct = [
+    //   {
+    //     prodctId: 21,
+    //     quantity: 12
+    //   },
+    // ]
     before(async function () {
       const execute = [{ insertId: 1 }];
 
