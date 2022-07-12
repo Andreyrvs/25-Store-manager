@@ -34,6 +34,12 @@ describe('Ao chamar a camada Model para Sales', () => {
         }
       ]
 
+    const wrongPayLoadProduct = [
+      {
+        prodctId: 21,
+        quantity: 12
+      },
+    ]
     before(async function () {
       const execute = [{ insertId: 1 }];
 
@@ -43,6 +49,11 @@ describe('Ao chamar a camada Model para Sales', () => {
     after(async function () {
       connection.execute.restore();
     });
+    // it('retorna null ao passar um id errado', async function () {
+    //   const response = await salesModel.createSale(wrongPayLoadProduct);
+
+    //   expect(response).to.be.equal(null)
+    // })
 
     describe('quando é inserido com sucesso', function () {
       it('retorna um objeto', async function () {

@@ -65,7 +65,7 @@ describe('Ao chamar a camada Models', function () {
 
     describe('quando é deletado com sucesso', async function () {
       const response = await productsModel.deleteProduct(id)
-      expect(response).to.have.property('REMOVED')
+      expect(response).shold.have.property('REMOVED')
     })
 
    })

@@ -17,8 +17,8 @@ const createSale = async (dataSales) => {
 
   const productSale = await Promise.all(dataSales.map((item) =>
     connection.execute(querySalesProduct, [sale.insertId, item.productId, item.quantity])));
-
-  if (!productSale) return null;
+  
+  if (!productSale || productSale === undefined) return null;
 
   return {
     id: sale.insertId,
