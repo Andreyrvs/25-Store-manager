@@ -64,7 +64,7 @@ const getById = async (idp) => {
   const [result] = await connection.execute(query, [idp]);
 
   if (result.length === 0 || !result) return null;
-
+  
   return result[0];
 };
 

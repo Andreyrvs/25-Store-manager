@@ -66,8 +66,6 @@ describe('Ao chamar a camada Models', function () {
   })
 
   describe('Busca apenas um produto no BD pelo ID', function () {
-    
-    const id = 1
 
     describe('Quando não existe um  produto com o ID informado', function () {
       before(async function () {
@@ -77,17 +75,34 @@ describe('Ao chamar a camada Models', function () {
       })
     
       after(async function () {
-        connection.execute.restore()
+        // connection.execute.restore()
+        productsModel.getById.restore();
       })
 
-      it('retorna null', async function () {
-        const response = await productsModel.getById(id);
+      it('retorna vazio', async function () {
+        const wrongId = 999999
 
-        expect(response).to.deep.equal({ id: undefined, name: undefined })
+        const response = await productsModel.getById(wrongId);
+
+        expect(Object.keys(response)).to.have.lengthOf(0)
       })
 
       describe('Quando existe um produto com o ID informado', function () {
+        before(async function () {
+          const execute = {
+            "id": 1,
+            "name": "Martelo de Thor"
+          };
 
+          sinon.stub(productsModel, 'getById').resolves(execute);
+        });
+
+        after(async function () {
+          connection.execute.restore();
+        });
+
+        const id = 1
+        
         describe('Busca um produto com sucesso passando o "ID"', function () {
           it('retorna um objeto', async function () {
             const response = await productsModel.getById(id);
@@ -98,7 +113,7 @@ describe('Ao chamar a camada Models', function () {
           it('o objeto não está vazio', async function () {
             const response = await productsModel.getById(id);
 
-            expect(response).to.be.not.empty
+            expect(Object.keys(response)).to.have.lengthOf(2)
           })
 
           it('o objeto tem as propriedades: "id", "name"', async function () {
