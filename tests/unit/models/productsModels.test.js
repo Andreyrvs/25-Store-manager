@@ -12,6 +12,7 @@ const allProducts = [
 ]
 
 const id = 1
+const wrongId = 999999
 const name = "The Office"
 
 describe('Ao chamar a camada Models', function () {
@@ -56,6 +57,11 @@ describe('Ao chamar a camada Models', function () {
     after(async function () {
       connection.execute.restore();
     });
+    it('retorna null ao passar um id errado', async function () {
+      const response = await productsModel.deleteProduct(wrongId);
+
+      expect(response).to.be.equal(null)
+    })
 
     describe('quando é deletado com sucesso', async function () {
       const response = await productsModel.deleteProduct(id)
@@ -74,6 +80,11 @@ describe('Ao chamar a camada Models', function () {
     after(async function () {
       connection.execute.restore();
     });
+    it('retorna null ao passar um id errado', async function () {
+      const response = await productsModel.updateById(wrongId);
+
+      expect(response).to.be.equal(null)
+    })
 
     describe('quando é deletado com sucesso', async function () {
       const response = await productsModel.updateById(id, name)
@@ -149,7 +160,7 @@ describe('Ao chamar a camada Models', function () {
         productsModel.getById.restore();
       })
 
-      it('retorna vazio', async function () {
+      it('retorna vazio ao passar um id errado', async function () {
         const wrongId = 999999
 
         const response = await productsModel.getById(wrongId);

@@ -18,7 +18,7 @@ const deleteProduct = async (id) => {
   const query = `DELETE FROM ${DATABASE}.products WHERE id = ?`;
 
   const [result] = await connection.execute(query, [id]);
-  
+
   if (result.length === 0) return null;
 
   return result;
