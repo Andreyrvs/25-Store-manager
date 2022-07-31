@@ -1,16 +1,41 @@
-# 🚧 README em construção 🚧
+# Store Manager
 
-<!-- Olá, Tryber!
+## Contexto
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+Este projeto trata-se de uma API utilizando a arquitetura MSC (model-service-controller)!
 
-É essencial que você preencha esse documento por conta própria, ok?
+## Técnologias usadas
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+Back-end:
+> Desenvolvido usando: NodeJS, ExpressJS, MYSQL, Docker
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+## Instalando Dependências
 
--->
+* clone o projeto:
+
+  ```bash
+  git clone git@github.com:Andreyrvs/store-manager.git
+  ```
+
+> Backend
+
+  ```bash
+    cd store-manager
+    npm install
+  ```
+
+## Executando aplicação
+
+* Para rodar o back-end:
+
+  ```bash
+     npm start
+  ```
+
+## Executando Testes
+
+* Para rodar todos os testes:
+
+  ```bash
+    npm test
+  ```
