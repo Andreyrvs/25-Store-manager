@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Este projeto trata-se de uma API utilizando a arquitetura MSC (model-service-controller)!
+Este projeto trata-se de um sistema de gerenciamento de vendas no formato dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas. Utiliza o banco de dados MySQL para a gestão de dados.
 
 ## Técnologias usadas
 
