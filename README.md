@@ -17,11 +17,34 @@ Back-end:
   git clone git@github.com:Andreyrvs/store-manager.git
   ```
 
+> Docker
+
+  Rode os serviços node e db com o comando:
+
+  ```bash
+    docker-compose up -d.
+  ```
+
+Esses serviços irão inicializar um container chamado store_manager e outro chamado store_manager_db.
+
+você pode rodar o container store_manager via CLI ou abri-lo no VS Code.
+
+  ```bash
+    docker exec -it store_manager bash
+  ```
+
+Instale as dependências.
+
+  ```bash
+    npm install
+  ```
+
+TODOS os comandos disponíveis no package.json (npm start, npm test, npm run dev, ...) devem ser executados DENTRO do container, ou seja, no terminal que aparece após a execução do comando docker exec citado acima.
+
 > Backend
 
   ```bash
-    cd store-manager
-    npm install
+    npm start
   ```
 
 ## Executando aplicação
