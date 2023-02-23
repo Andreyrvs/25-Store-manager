@@ -1,9 +1,13 @@
 FROM node:16
 
-WORKDIR /home/node/app
+WORKDIR /app
+
+RUN pwd
 
 COPY package*.json ./
 
-COPY . ./home/node/app
+RUN ["npm", "install"]
 
-RUN npm start
+COPY . .
+
+RUN ["npm", "start"]
