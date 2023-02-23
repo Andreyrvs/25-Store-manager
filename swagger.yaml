@@ -17,4 +17,12 @@ servers:
   - url: https://25-store-manager-production.up.railway.app/products
 tags:
   - name: products
-    descripition: Retorna todos produtos
+    description: Tudo sobre os produtos
+  - name: sales
+    description: Tudo sobre os sales
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Retorna todos produtos existentes
