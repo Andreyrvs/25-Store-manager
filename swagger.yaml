@@ -31,7 +31,7 @@ paths:
       operationId: getAll
       responses:
         '200':
-          description: operação bem sucedida
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
@@ -55,7 +55,7 @@ paths:
         required: true
       responses:
         '201':
-          description: operação bem sucedida
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
@@ -83,7 +83,7 @@ paths:
             format: int64
       responses:
         '200':
-          description: operação bem sucedida
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
@@ -112,7 +112,7 @@ paths:
               $ref: '#/components/schemas/ProductsId'
         required: true
       responses:
-        '201':
+        '200':
           description: operação bem sucedida
           content:
             application/json:
@@ -124,7 +124,25 @@ paths:
           description: Product not found
         '422':
           description: name length must be at least 5 characters long
-
+    delete:
+      tags:
+        - products
+      summary: Deleta um produto
+      description: Deleta um produto usando Id
+      operationId: deleteProduct
+      parameters:
+        - name: productId
+          in: path
+          description: Id do produto para deletar
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Product not found
   /sales:
     get:
       tags:
