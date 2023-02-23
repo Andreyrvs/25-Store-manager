@@ -11,5 +11,3 @@ RUN ["npm", "install"]
 COPY . .
 
 ARG EnvironmentVariable
-
-RUN ["npm", "start"]
