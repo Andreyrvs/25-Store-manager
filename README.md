@@ -51,7 +51,7 @@ Back-end:
       docker exec -it store_manager bash
     ```
 
-    2. TODOS os comandos disponíveis no `package.json` (npm start, npm test:mocha, npm migration, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando **docker exec** citado acima.
+    1. TODOS os comandos disponíveis no `package.json` (npm start, npm test:mocha, npm migration, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando **docker exec** citado acima.
 
 3. Instale as dependências.
 
