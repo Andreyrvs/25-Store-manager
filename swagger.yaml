@@ -26,3 +26,27 @@ paths:
       tags:
         - products
       summary: Retorna todos produtos existentes
+      description: Um Array de objetos com "id" é um número e "name" uma string
+      responses:
+        '200':
+          description: operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+components:
+  schemas:
+    Products:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Martelo de Thor
