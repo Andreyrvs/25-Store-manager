@@ -1,7 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
@@ -11,7 +11,7 @@ const productsController = require('./controllers/productsController');
 const salesController = require('./controllers/salesController');
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 
 console.log('Iniciando o projeto usando docker');
@@ -20,8 +20,8 @@ app.use('/', swaggerUi.serve);
 app.get('/', swaggerUi.setup(swaggerDocument));
 
 app.get('/products', rescue(productsController.getAll));
-app.get('/products/:id', rescue(productsController.getById));
 app.post('/products', rescue(productsController.create));
+app.get('/products/:id', rescue(productsController.getById));
 app.put('/products/:id', rescue(productsController.updateById));
 app.delete('/products/:id', rescue(productsController.deleteProduct));
 
