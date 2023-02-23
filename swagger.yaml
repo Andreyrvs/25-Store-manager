@@ -14,7 +14,8 @@ info:
   contact:
     email: cortaesai@gmail.com
 servers:
-  - url: https://25-store-manager-production.up.railway.app/products
+  # - url: https://25-store-manager-production.up.railway.app/products
+  - url: http://localhost:3000/
 tags:
   - name: products
     description: Tudo sobre os produtos
@@ -27,6 +28,7 @@ paths:
         - products
       summary: Retorna todos produtos existentes
       description: Um Array de objetos com "id" é um número e "name" uma string
+      operationId: getAll
       responses:
         '200':
           description: operação bem sucedida
@@ -36,6 +38,61 @@ paths:
                 type: array
                 items:
                   $ref: '#components/schemas/Products'
+        '404':
+          description: Product not found
+    post:
+      tags:
+        - products
+      summary: Adiciona um produto
+      description: Adiciona um produto
+      operationId: create
+      requestBody:
+        description: Cria um novo produto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsId'
+        required: true
+      responses:
+        '201':
+          description: operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        '400':
+          description: name is required
+        '422':
+          description: name length must be at least 5 characters long
+  /products/{productId}:
+    get:
+      tags:
+        - products
+      summary: Encontra produto por ID
+      description: Retorna um único produto
+      operationId: getById
+      parameters:
+        - name: productId
+          in: path
+          description: Identificação do produto a devolver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Products'
+  /sales:
+    get:
+      tags:
+        - sales
+      summary: Retorna todas vendas
 components:
   schemas:
     Products:
@@ -50,3 +107,28 @@ components:
         name:
           type: string
           example: Martelo de Thor
+    ProductsId:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Martelo de Thor
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+requestBodies:
+  ProductsId:
+    description: produto add
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/Products'
