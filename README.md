@@ -7,7 +7,7 @@ Este projeto trata-se de um sistema de gerenciamento de vendas no formato dropsh
 ## Técnologias usadas
 
 Back-end:
-> Desenvolvido usando: NodeJS, ExpressJS, MYSQL, Docker
+> Desenvolvido usando: NodeJS, ExpressJS, MYSQL, Docker, Mocha, Chai, Sinon.
 
 ## Instalando Dependências
 
@@ -19,58 +19,60 @@ Back-end:
 
 > Dotenv
 
-Renomeie o arquivo `.env-example` para .env e coloque as credenciais:
+* Renomeie o arquivo `.env-example` para .env e coloque as credenciais:
 
- ```bash
-    MYSQL_HOST=store_manager_db
-    MYSQL_USER=root
-    MYSQL_PASSWORD=password
-    MYSQL_DATABASE=StoreManager
-    PORT=3000
-  ```
+  ```bash
+  MYSQL_HOST=store_manager_db
+  MYSQL_USER=root
+  MYSQL_PASSWORD=password
+  MYSQL_DATABASE=StoreManager
+  PORT=3000
+    ```
 
 > Docker
 
-  Rode os serviços node e db com o comando:
+1. Rode os serviços node e db com o comando:
 
-  ```bash
+    ```bash
     docker compose up -d
-  ```
+    ```
 
-  Esses serviços irão inicializar um container chamado store_manager e outro chamado store_manager_db.
+    1. Esses serviços irão inicializar um container chamado store_manager e outro chamado store_manager_db.
 
-  Rode o container store_manager via CLI ou abri-lo no VS Code.
+2. Rode o container store_manager via CLI ou abri-lo no VS Code.
 
-  ```bash
-    docker exec -it store_manager bash
-  ```
+    ```bash
+      docker exec -it store_manager bash
+    ```
 
-  Instale as dependências.
+    > **TODOS** os comandos disponíveis no `package.json` (npm start, npm test:mocha, npm migration, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando **docker exec** citado acima.
 
-  ```bash
-    npm install
-  ```
+3. Instale as dependências.
 
-  TODOS os comandos disponíveis no package.json (npm start, npm test, npm run dev, ...) devem ser executados DENTRO do container, ou seja, no terminal que aparece após a execução do comando docker exec citado acima.
+    ```bash
+      npm install
+    ```
 
 > Banco de dados
 
-  Cria o banco de dados
+1. Cria o banco de dados
 
-  ```bash
+    ```bash
     npm run migration
-  ```
+    ```
 
-  ```bash
+2. Popule o banco de dados
+
+    ```bash
     npm run seed
-  ```
+    ```
 
 ## Executando aplicação
 
 * Para rodar o back-end:
 
   ```bash
-     npm start
+  npm start
   ```
 
 ## Executando Testes
@@ -78,5 +80,5 @@ Renomeie o arquivo `.env-example` para .env e coloque as credenciais:
 * Para rodar todos os testes:
 
   ```bash
-    npm run test:mocha
+  npm run test:mocha
   ```
