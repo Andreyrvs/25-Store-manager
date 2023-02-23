@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS StoreManager;
+DROP DATABASE IF EXISTS railway;
 
-CREATE DATABASE StoreManager;
+CREATE DATABASE railway;
 
-USE StoreManager;
+USE railway;
 
 CREATE TABLE products (
   id INT NOT NULL auto_increment,

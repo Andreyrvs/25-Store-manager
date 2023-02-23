@@ -8,7 +8,6 @@ const connect = () => mysql.createPool({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
-  port: Number(process.env.MYSQLPORT || 3306),
   multipleStatements: true
 })
 
