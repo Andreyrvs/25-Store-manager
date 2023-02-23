@@ -5,7 +5,8 @@ const connection = mysql.createPool({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQL_DATABASE || 'StoreManager',
+  database: process.env.MYSQL_DATABASE || 'railway',
+  port: Number(process.env.MYSQLPORT),
 }); 
 
 module.exports = connection;
