@@ -17,6 +17,8 @@ Back-end:
   git clone git@github.com:Andreyrvs/store-manager.git
   ```
 
+* Entre no diretório
+
   ```bash
   cd store-manager
   ```
