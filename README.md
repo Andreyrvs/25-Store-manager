@@ -25,15 +25,7 @@ Back-end:
 
 > Dotenv
 
-* Renomeie o arquivo `.env-example` para `.env` e coloque as credenciais:
-
-  ```bash
-  MYSQL_HOST=store_manager_db
-  MYSQL_USER=root
-  MYSQL_PASSWORD=password
-  MYSQL_DATABASE=StoreManager
-  PORT=3000
-    ```
+* Renomeie o arquivo `.env-example` para `.env`
 
 > Docker
 
