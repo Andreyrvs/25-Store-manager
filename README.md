@@ -25,7 +25,7 @@ Back-end:
 
 > Dotenv
 
-* Renomeie o arquivo `.env-example` para .env e coloque as credenciais:
+* Renomeie o arquivo `.env-example` para `.env` e coloque as credenciais:
 
   ```bash
   MYSQL_HOST=store_manager_db
@@ -79,6 +79,26 @@ Back-end:
 
   ```bash
   npm start
+  ```
+
+* Faça um **get** na rota `localhost:3000/products` usando insomnia, postman, etc....
+* O retorno será:
+
+  ```bash
+    [
+      {
+        "id": 1,
+        "name": "Martelo de Thor"
+      },
+      {
+        "id": 2,
+        "name": "Traje de encolhimento"
+      },
+      {
+        "id": 3,
+        "name": "Escudo do Capitão América"
+      }
+    ]
   ```
 
 ## Executando Testes
