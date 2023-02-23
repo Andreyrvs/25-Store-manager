@@ -88,6 +88,43 @@ paths:
             application/json:
               schema:
                   $ref: '#components/schemas/Products'
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - products
+      summary: Atualiza um único produto
+      description: Atualiza um produto existente pelo Id
+      operationId: updateById
+      parameters:
+        - name: productId
+          in: path
+          description: Identificação do produto a devolver
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Atualiza um produto existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsId'
+        required: true
+      responses:
+        '201':
+          description: operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Products'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Product not found
+        '422':
+          description: name length must be at least 5 characters long
+
   /sales:
     get:
       tags:
