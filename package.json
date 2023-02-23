@@ -34,8 +34,7 @@
     "express-rescue": "^1.1.26",
     "joi": "^17.6.0",
     "mysql2": "^2.3.0",
-    "shelljs": "^0.8.5",
-    "swagger-ui": "^4.15.5"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",
