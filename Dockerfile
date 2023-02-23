@@ -6,13 +6,12 @@ RUN pwd
 
 COPY package*.json ./
 
-RUN ["npm", "install"]
+RUN npm install
 
 COPY . .
 
+# RUN npm run migration
+
+# RUN npm run seed
+
 ARG EnvironmentVariable
-
-RUN ["npm", "run", "migration"]
-
-RUN ["npm", "run", "seed"]
-
