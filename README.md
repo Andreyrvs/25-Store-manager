@@ -17,6 +17,10 @@ Back-end:
   git clone git@github.com:Andreyrvs/store-manager.git
   ```
 
+  ```bash
+  cd store-manager
+  ```
+
 > Dotenv
 
 * Renomeie o arquivo `.env-example` para .env e coloque as credenciais:
