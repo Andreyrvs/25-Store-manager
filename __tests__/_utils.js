@@ -8,6 +8,7 @@ const connect = () => mysql.createPool({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
+  host: process.env.MYSQLHOST || 'railway',
   multipleStatements: true
 })
 

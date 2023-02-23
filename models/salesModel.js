@@ -1,6 +1,6 @@
 const connection = require('../helpers/connection');
 
-const DATABASE = 'StoreManager';
+const DATABASE = 'railway';
 
 const querySale = `
   INSERT INTO 
