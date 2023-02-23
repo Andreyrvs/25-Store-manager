@@ -83,7 +83,14 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
   npm start
   ```
 
-* Faça um **get** na rota `localhost:3000/products` usando insomnia, postman, etc....
+* Acesse a url
+
+  ```bash
+  localhost:3000/products
+  ```
+
+  > Ou faça um **get** usando insomnia, postman, etc....
+
 * O retorno será:
 
   ```bash
