@@ -1,7 +1,10 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-
+const swaggerUi = require('swagger-ui-express');
+const yaml = require('js-yaml');
+const fs = require('fs');
+const swaggerDocument = require('./swagger.json');
 const productsController = require('./controllers/productsController');
 const salesController = require('./controllers/salesController');
 
@@ -10,10 +13,21 @@ const app = express();
 app.use(bodyParser.json());
 
 console.log('Iniciando o projeto usando docker');
+
+try {
+  const doc = yaml.load(fs.readFileSync('./swagger.yaml', 'utf8'));
+  console.log(doc);
+} catch (e) {
+  console.log(e);
+}
+
+app.use('/', swaggerUi.serve);
+app.get('/', swaggerUi.setup(swaggerDocument));
+
 // não remova esse endpoint, é para o avaliador funcionar
-app.get('/', (_request, response) => {
-  response.send();
-});
+// app.get('/', (_request, response) => {
+//   response.send();
+// });
 
 app.get('/products', rescue(productsController.getAll));
 app.get('/products/:id', rescue(productsController.getById));
