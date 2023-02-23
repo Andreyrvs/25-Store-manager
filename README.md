@@ -37,6 +37,8 @@ Back-end:
 
 > Docker
 
+Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `PORT=`
+
 1. Rode os serviços node e db com o comando:
 
     ```bash
