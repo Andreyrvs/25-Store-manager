@@ -11,3 +11,8 @@ RUN ["npm", "install"]
 COPY . .
 
 ARG EnvironmentVariable
+
+RUN ["npm", "run", "migration"]
+
+RUN ["npm", "run", "seed"]
+
