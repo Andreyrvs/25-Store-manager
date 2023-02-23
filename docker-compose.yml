@@ -41,7 +41,7 @@ services:
     container_name: store_manager_db
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     ports:
       # Garanta que não haverá conflitos de porta com um banco que esteja
       # rodando localmente
