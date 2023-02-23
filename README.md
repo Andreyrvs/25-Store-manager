@@ -50,7 +50,7 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
 2. Rode o container store_manager via CLI ou abri-lo no VS Code.
 
     ```bash
-      docker exec -it store_manager bash
+    docker exec -it store_manager bash
     ```
 
     1. TODOS os comandos disponíveis no `package.json` (npm start, npm test:mocha, npm migration, ...) devem ser executados **DENTRO** do container, ou seja, no terminal que aparece após a execução do comando **docker exec** citado acima.
@@ -58,7 +58,7 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
 3. Instale as dependências.
 
     ```bash
-      npm install
+    npm install
     ```
 
 > Banco de dados
