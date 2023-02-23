@@ -1,6 +1,20 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
-    title: Sistema de gerenciamento de vendas no formato dropshipping - OpenAPI 3.0
-    description: Este projeto trata-se de um sistema de gerenciamento de vendas no formato dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas. Utiliza o banco de dados MySQL para a gestão de dados.\n\nAlguns links úteis:\n\n - [Repositorio Store Manager](https://github.com/Andreyrvs/25-store-manager)
-    contact:
-        email: cortaesai@gmail.com
+  title: Sistema de gerenciamento de vendas - OpenAPI 3.0
+  description: >-
+    Este projeto trata-se de um sistema de gerenciamento de vendas no formato
+    dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas.
+    Utiliza o banco de dados MySQL para a gestão de dados.
+
+
+    Alguns links úteis:
+
+    - [Repositorio Store Manager](https://github.com/Andreyrvs/25-store-manager)
+  version: 0.0.5
+  contact:
+    email: cortaesai@gmail.com
+servers:
+  - url: https://25-store-manager-production.up.railway.app/products
+tags:
+  - name: products
+    descripition: Retorna todos produtos
