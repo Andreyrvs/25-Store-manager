@@ -14,7 +14,6 @@ info:
   contact:
     email: cortaesai@gmail.com
 servers:
-  # - url: https://25-store-manager-production.up.railway.app/products
   - url: http://localhost:3000/
 tags:
   - name: products
@@ -80,7 +79,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int4
       responses:
         '200':
           description: Operação bem sucedida
@@ -103,7 +102,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int4
       requestBody:
         description: Atualiza um produto existente
         content:
@@ -137,7 +136,7 @@ paths:
           required: true
           schema:
             type: integer
-            format: int64
+            format: int4
       responses:
         '204':
           description: No Content
@@ -157,7 +156,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: int4
           example: 1
         name:
           type: string
@@ -170,6 +169,16 @@ components:
         name:
           type: string
           example: Martelo de Thor
+    Sales:
+      required:
+        - saleId
+      type: object
+      properties:
+        name:
+          type: integer
+          format: int4
+          example: 1
+
   ApiResponse:
     type: object
     properties:
