@@ -78,29 +78,10 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
 * Acesse a url
 
   ```bash
-  localhost:3000/products
+  localhost:3000
   ```
 
-  > Ou faça um **get** usando insomnia, postman, etc....
-
-* O retorno será:
-
-  ```bash
-    [
-      {
-        "id": 1,
-        "name": "Martelo de Thor"
-      },
-      {
-        "id": 2,
-        "name": "Traje de encolhimento"
-      },
-      {
-        "id": 3,
-        "name": "Escudo do Capitão América"
-      }
-    ]
-  ```
+  > Essa rota utiliza o Swagger que documenta todas as rotas da aplicação
 
 ## Executando Testes
 
