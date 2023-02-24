@@ -158,6 +158,30 @@ paths:
                   $ref: '#components/schemas/Sales'
         '404':
           description: Sale not found
+  /sales/{saleId}:
+    get:
+      tags:
+        - sales
+      summary: Encontra venda por ID
+      description: Retorna uma única venda
+      operationId: getById
+      parameters:
+        - name: saleId
+          in: path
+          description: Identificação da venda a devolver
+          required: true
+          schema:
+            type: integer
+            format: int4
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/SalesId'
+        '404':
+          description: Sale not found
 components:
   schemas:
     Products:
@@ -204,7 +228,25 @@ components:
           type: integer
           format: int4
           example: 12
-
+    SalesId:
+      required:
+        - productId
+        - quantity
+      type: array
+      properties:
+        date:
+          type: string
+          maxLength: 19
+          format: date-time
+          example: 2023-02-23T23:57:11.000Z
+        productId:
+          type: integer
+          format: int4
+          example: 2
+        quantity:
+          type: integer
+          format: int4
+          example: 12
   ApiResponse:
     type: object
     properties:
