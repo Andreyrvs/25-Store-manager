@@ -206,7 +206,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#components/schemas/SalesId'
+                $ref: '#components/schemas/ProductsArray'
         '404':
           description: Sale not found
 components:
@@ -223,6 +223,7 @@ components:
         name:
           type: string
           example: Martelo de Thor
+
     ProductsId:
       required:
         - name
@@ -231,6 +232,7 @@ components:
         name:
           type: string
           example: Martelo de Thor
+
     Sales:
       required:
         - saleId
@@ -255,6 +257,7 @@ components:
           type: integer
           format: int4
           example: 12
+
     SalesPost:
       required:
         - id
@@ -333,3 +336,11 @@ requestBodies:
           type: array
           items:
             $ref: '#/components/schemas/Sale'
+  ProductsArray:
+    description: retorno
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
