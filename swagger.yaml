@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: Sistema de gerenciamento de vendas - OpenAPI 3.0
+  description: >-
+    Este projeto trata-se de um sistema de gerenciamento de vendas no formato
+    dropshipping em que será possível criar, visualizar, deletar e atualizar produtos e vendas.
+    Utiliza o banco de dados MySQL para a gestão de dados.
+
+
+    Alguns links úteis:
+
+    - [Repositorio Store Manager](https://github.com/Andreyrvs/25-store-manager)
+  version: 0.0.5
+  contact:
+    email: cortaesai@gmail.com
+servers:
+  - url: http://localhost:3000/
+tags:
+  - name: products
+    description: Tudo sobre os produtos
+  - name: sales
+    description: Tudo sobre as vendas
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Retorna todos produtos existentes
+      description: Um Array de objetos com "id" é um número e "name" uma string
+      operationId: getAll
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        '404':
+          description: Product not found
+    post:
+      tags:
+        - products
+      summary: Adiciona um produto
+      description: Adiciona um produto
+      operationId: create
+      requestBody:
+        description: Cria um novo produto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsId'
+        required: true
+      responses:
+        '201':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        '400':
+          description: name is required
+        '422':
+          description: name length must be at least 5 characters long
+  /products/{productId}:
+    get:
+      tags:
+        - products
+      summary: Encontra produto por ID
+      description: Retorna um único produto
+      operationId: getById
+      parameters:
+        - name: productId
+          in: path
+          description: Identificação do produto a devolver
+          required: true
+          schema:
+            type: integer
+            format: int4
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Products'
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - products
+      summary: Atualiza um único produto
+      description: Atualiza um produto existente pelo Id
+      operationId: updateById
+      parameters:
+        - name: productId
+          in: path
+          description: Identificação do produto a devolver
+          required: true
+          schema:
+            type: integer
+            format: int4
+      requestBody:
+        description: Atualiza um produto existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsId'
+        required: true
+      responses:
+        '200':
+          description: operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Products'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Product not found
+        '422':
+          description: name length must be at least 5 characters long
+    delete:
+      tags:
+        - products
+      summary: Deleta um produto
+      description: Deleta um produto usando Id
+      operationId: deleteProduct
+      parameters:
+        - name: productId
+          in: path
+          description: Id do produto para deletar
+          required: true
+          schema:
+            type: integer
+            format: int4
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Product not found
+  /sales:
+    get:
+      tags:
+        - sales
+      summary: Retorna todas vendas existentes
+      description: Retorna um Array de Objetos com id da venda, data, id do produto e quantidade
+      operationId: getAll
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Sales'
+        '404':
+          description: Sale not found
+    post:
+      tags:
+        - sales
+      summary: Atualiza varias vendas de uma vez
+      description: Retorna um Array de Objetos com id da venda, e um Array com id do produto e quantidade
+      operationId: create
+      requestBody:
+        description: Insira dentro do Array multiplos Objetos com id do produto e quantidade
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sale'
+        required: true
+      responses:
+        '201':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/SalesPost'
+        '400':
+          description: productId is required or quantity
+        '422':
+          description: quantity must be greater than or equal to One
+
+  /sales/{saleId}:
+    get:
+      tags:
+        - sales
+      summary: Encontra venda por ID
+      description: Retorna uma única venda
+      operationId: getById
+      parameters:
+        - name: saleId
+          in: path
+          description: Id da venda
+          required: true
+          schema:
+            type: integer
+            format: int4
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProductsArray'
+        '404':
+          description: Sale not found
+components:
+  schemas:
+    Products:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int4
+          example: 1
+        name:
+          type: string
+          example: Martelo de Thor
+
+    ProductsId:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Martelo de Thor
+
+    Sales:
+      required:
+        - saleId
+        - productId
+        - quantity
+      type: object
+      properties:
+        saleId:
+          type: integer
+          format: int4
+          example: 1
+        date:
+          type: string
+          maxLength: 19
+          format: date-time
+          example: 2023-02-23T23:57:11.000Z
+        productId:
+          type: integer
+          format: int4
+          example: 2
+        quantity:
+          type: integer
+          format: int4
+          example: 12
+
+    SalesPost:
+      required:
+        - id
+        - productId
+        - quantity
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int4
+          example: 12
+        itemsSold:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Sale'
+
+    Sale:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int4
+          example: 1
+        quantity:
+          type: integer
+          format: int4
+          minimum: 1
+          example: 12
+      xml:
+        name: itemsSold
+
+    SalesId:
+      required:
+        - productId
+        - quantity
+      type: object
+      properties:
+        date:
+          type: string
+          maxLength: 19
+          format: date-time
+          example: 2023-02-23T23:57:11.000Z
+        productId:
+          type: integer
+          format: int4
+          example: 2
+        quantity:
+          type: integer
+          format: int4
+          minimum: 1
+          example: 12
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+requestBodies:
+  ProductsId:
+    description: produto add
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/Products'
+  SalesArray:
+    description: sale add
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sale'
+  ProductsArray:
+    description: retorno
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
