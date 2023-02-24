@@ -15,6 +15,7 @@ info:
     email: cortaesai@gmail.com
 servers:
   - url: http://localhost:3000/
+  - url: https://25-store-manager-production.up.railway.app/
 tags:
   - name: products
     description: Tudo sobre os produtos
