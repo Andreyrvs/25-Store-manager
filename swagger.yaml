@@ -171,7 +171,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Tag'
+                $ref: '#/components/schemas/Sale'
         required: true
       responses:
         '201':
@@ -179,7 +179,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Tag'
+                $ref: '#components/schemas/SalesPost'
         '400':
           description: productId is required or quantity
         '422':
@@ -195,7 +195,7 @@ paths:
       parameters:
         - name: saleId
           in: path
-          description: Identificação da venda a devolver
+          description: Id da venda
           required: true
           schema:
             type: integer
@@ -271,9 +271,9 @@ components:
           xml:
             wrapped: true
           items:
-            $ref: '#/components/schemas/Tag'
+            $ref: '#/components/schemas/Sale'
 
-    Tag:
+    Sale:
       type: object
       properties:
         productId:
@@ -332,4 +332,4 @@ requestBodies:
         schema:
           type: array
           items:
-            $ref: '#/components/schemas/Tag'
+            $ref: '#/components/schemas/Sale'
