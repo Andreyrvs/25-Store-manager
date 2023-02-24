@@ -146,7 +146,18 @@ paths:
     get:
       tags:
         - sales
-      summary: Retorna todas vendas
+      summary: Retorna todas vendas existentes
+      description: Retorna um Array de Objetos com id da venda, data, id do produto e quantidade
+      operationId: getAll
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/Sales'
+        '404':
+          description: Sale not found
 components:
   schemas:
     Products:
@@ -172,12 +183,27 @@ components:
     Sales:
       required:
         - saleId
-      type: object
+        - productId
+        - quantity
+      type: array
       properties:
-        name:
+        saleId:
           type: integer
           format: int4
           example: 1
+        date:
+          type: string
+          maxLength: 19
+          format: date-time
+          example: 2023-02-23T23:57:11.000Z
+        productId:
+          type: integer
+          format: int4
+          example: 2
+        quantity:
+          type: integer
+          format: int4
+          example: 12
 
   ApiResponse:
     type: object
