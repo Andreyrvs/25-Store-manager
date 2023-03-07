@@ -9,23 +9,38 @@ Este projeto trata-se de um sistema de gerenciamento de vendas no formato dropsh
 Back-end:
 > Desenvolvido usando: NodeJS, ExpressJS, MYSQL, Docker, Mocha, Chai, Sinon.
 
+## Habilidades
+
+Adquiri essas habilidades ao desenvolver esse projeto:
+
+- Desenvolver testes unitários
+
+- Conteinerizar a API e banco de dados MySQL utilizando docker file e compose
+
+- Fazer queries MySQL comfome a necessidade da API
+
+<!-- ## Preview da Aplicação
+
+| ![Login](./aplicacao-) | ![Home](./aplicacao-) |
+| ----------- | ----------- | -->
+
 ## Instalando Dependências
 
-* clone o projeto:
+- clone o projeto:
 
   ```bash
-  git clone git@github.com:Andreyrvs/store-manager.git
+  git clone git@github.com:Andreyrvs/25-store-manager.git
   ```
 
-* Entre no diretório
+- Entre no diretório
 
   ```bash
-  cd store-manager
+  cd 25-store-manager
   ```
 
 > Dotenv
 
-* Renomeie o arquivo `.env-example` para `.env`
+- Renomeie o arquivo `.env-example` para `.env`
 
 > Docker
 
@@ -69,13 +84,13 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
 
 ## Executando aplicação
 
-* Para rodar o back-end:
+- Para rodar o back-end:
 
   ```bash
   npm start
   ```
 
-* Acesse a url
+- Acesse a url
 
   ```bash
   localhost:3000
@@ -85,7 +100,7 @@ Por padrão essa API utiliza a Porta **3000** que esta na variavel de ambiente `
 
 ## Executando Testes
 
-* Para rodar todos os testes:
+- Para rodar todos os testes:
 
   ```bash
   npm run test:mocha
